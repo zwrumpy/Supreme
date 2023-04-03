@@ -277,8 +277,19 @@ public class MediumContainerMachine extends AContainer implements NotHopperable,
     return this;
   }
 
+  private int progressTick = 0;
+  private int progressInterval = 8;
+
   @Override
-  protected void tick(Block b) {
+  public void tick(Block b) {
+    if (progressTick >= progressInterval) {
+      update(b);
+      progressTick = 0;
+    } else progressTick++;
+  }
+
+
+  protected void update(Block b) {
     BlockMenu inv = BlockStorage.getInventory(b);
 
     if (this.isProcessing(b)) {
