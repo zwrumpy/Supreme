@@ -172,7 +172,7 @@ public class VirtualAquarium extends SimpleItemWithLargeContainerMachine {
   }
 
   @Override
-  protected void tick(Block b) {
+  public void tick(Block b) {
     BlockMenu inv = BlockStorage.getInventory(b);
     if (isProcessing(b)) {
       if (takeCharge(b.getLocation())) {

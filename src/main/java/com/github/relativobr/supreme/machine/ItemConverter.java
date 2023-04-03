@@ -51,7 +51,7 @@ public class ItemConverter extends SimpleItemContainerMachine {
   }
 
   @Override
-  protected void tick(Block b) {
+  public void tick(Block b) {
     BlockMenu inv = BlockStorage.getInventory(b);
     int[] outputSlots = this.getOutputSlots();
     int[] inputSlots = this.getInputSlots();

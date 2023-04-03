@@ -86,7 +86,17 @@ public class AbstractQuarry extends SlimefunItem implements EnergyNetComponent {
     });
   }
 
-  private void tick(Block b) {
+  private int progressTick = 0;
+  private int progressInterval = 8;
+
+  public void tick(Block b) {
+    if (progressTick >= progressInterval) {
+      update(b);
+      progressTick = 0;
+    } else progressTick++;
+  }
+
+  private void update(Block b) {
     Block targetBlock = b.getRelative(BlockFace.DOWN);
     if (isInvalidInventory(targetBlock) || !this.enabled || getCharge(b.getLocation()) < getEnergyConsumption()) {
       // disabled machine or no energy, abort...
