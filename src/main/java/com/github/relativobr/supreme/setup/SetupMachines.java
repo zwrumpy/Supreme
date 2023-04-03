@@ -162,12 +162,12 @@ public class SetupMachines {
     new MagicAltar(ItemGroups.MACHINES_CATEGORY, MagicAltar.MAGIC_ALTAR_MACHINE_II, RecipeType.ENHANCED_CRAFTING_TABLE,
         MagicAltar.RECIPE_MAGIC_ALTAR_MACHINE_II).setMachineIdentifier(MagicAltar.MAGIC_ALTAR_MACHINE_II.getItemId())
         .setMachineRecipes(MagicAltar.getAllRecipe()).setTimeProcess(15).setProcessingSpeed(5).setCapacity(200)
-        .setEnergyConsumption(100).register(sup);
+        .setEnergyConsumption(300).register(sup);
 
     new MagicAltar(ItemGroups.MACHINES_CATEGORY, MagicAltar.MAGIC_ALTAR_MACHINE_III, RecipeType.ENHANCED_CRAFTING_TABLE,
         MagicAltar.RECIPE_MAGIC_ALTAR_MACHINE_III).setMachineIdentifier(MagicAltar.MAGIC_ALTAR_MACHINE_III.getItemId())
         .setMachineRecipes(MagicAltar.getAllRecipe()).setTimeProcess(15).setProcessingSpeed(15).setCapacity(600)
-        .setEnergyConsumption(300).register(sup);
+        .setEnergyConsumption(3000).register(sup);
 
     new Foundry(ItemGroups.MACHINES_CATEGORY, Foundry.FOUNDRY_MACHINE, RecipeType.ENHANCED_CRAFTING_TABLE,
         Foundry.RECIPE_FOUNDRY_MACHINE).setMachineIdentifier(Foundry.FOUNDRY_MACHINE.getItemId())
