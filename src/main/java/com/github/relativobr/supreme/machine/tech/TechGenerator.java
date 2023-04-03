@@ -255,7 +255,7 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
   }
 
   private void checkCloneOutput(BlockMenu inv, ItemStack itemStack) {
-    itemStack.setAmount(Supreme.getSupremeOptions().getMaxAmountTechGenerator());
+    itemStack.setAmount(32);
     inv.pushItem(itemStack, this.getOutputSlots());
     buildSlotProcess(inv.getItemInSlot(getInputSlots()[1]), itemStack, inv);
     buildSlotProcess(inv.getItemInSlot(getInputSlots()[2]), itemStack, inv);

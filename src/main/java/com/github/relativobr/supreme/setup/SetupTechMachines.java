@@ -70,10 +70,11 @@ public class SetupTechMachines {
           .setEnergyConsumption(500).register(sup);
 
       new TechGenerator(TechGenerator.TECH_GENERATOR,
-          TechGenerator.RECIPE_TECH_GENERATOR).setTimeProcess(
-              supremeOptions.getBaseTimeTechGenerator())
+          TechGenerator.RECIPE_TECH_GENERATOR)
+              .setTimeProcess(1800)
+              //.setTimeProcess(supremeOptions.getBaseTimeTechGenerator())
           .setMachineIdentifier(TechGenerator.TECH_GENERATOR.getItemId()).setCapacity(40000)
-          .setEnergyConsumption(2000).register(sup);
+          .setEnergyConsumption(10000).register(sup);
 
     }
   }
