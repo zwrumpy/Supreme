@@ -42,7 +42,7 @@ quarry-custom-output:
   supreme_coal_quarry:
     1:
       item: "COAL"
-      chance: 20
+      chance: 10
       is-slimefun: false
     2:
       item: "MYCELIUM"
@@ -102,23 +102,23 @@ quarry-custom-output:
 #      item: "LAPIS_LAZULI"
 #      chance: 20
 #      is-slimefun: false
-    4:
+    3:
       item: "REDSTONE"
       chance: 20
       is-slimefun: false
-    5:
+    4:
       item: "SULFATE"
       chance: 10
       is-slimefun: true
-    6:
+    5:
       item: "BUCKET_OF_OIL"
       chance: 5
       is-slimefun: true
-    7:
+    6:
       item: "CLAY"
       chance: 10
       is-slimefun: false
-    8:
+    7:
       item: "SNOWBALL"
       chance: 10
       is-slimefun: false
@@ -135,23 +135,23 @@ quarry-custom-output:
 #      item: "QUARTZ"
 #      chance: 20
 #      is-slimefun: false
-    4:
+    1:
       item: "OBSIDIAN"
       chance: 5
       is-slimefun: false
-    5:
+    2:
       item: "CRYING_OBSIDIAN"
       chance: 5
       is-slimefun: false
-    6:
+    3:
       item: "END_STONE"
       chance: 20
       is-slimefun: false
-    7:
+    4:
       item: "SEA_LANTERN"
       chance: 5
       is-slimefun: false
-    8:
+    5:
       item: "BLACKSTONE"
       chance: 5
       is-slimefun: false
@@ -164,11 +164,11 @@ quarry-custom-output:
 #      item: "NETHERITE_INGOT"
 #      chance: 5
 #      is-slimefun: false
-    3:
+    2:
       item: "IRON_BLOCK"
       chance: 15
       is-slimefun: false
-    4:
+    3:
       item: "COAL_BLOCK"
       chance: 15
       is-slimefun: false
@@ -180,7 +180,7 @@ quarry-custom-output:
 #      item: "QUARTZ_BLOCK"
 #      chance: 15
 #      is-slimefun: false
-    7:
+    4:
       item: "REDSTONE_BLOCK"
       chance: 15
       is-slimefun: false
@@ -205,15 +205,15 @@ quarry-custom-output:
 #      item: "DIAMOND_BLOCK"
 #      chance: 10
 #      is-slimefun: false
-    5:
+    2:
       item: "SUPREME_THORNIUM_BIT"
       chance: 10
       is-slimefun: true
-    6:
+    3:
       item: "COAL_BLOCK"
       chance: 20
       is-slimefun: false
-    7:
+    4:
       item: "IRON_BLOCK"
       chance: 20
       is-slimefun: false
