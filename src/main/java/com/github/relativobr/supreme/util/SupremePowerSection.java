@@ -43,34 +43,47 @@ public class SupremePowerSection {
 
   public static SupremePowerSection defaultValue() {
     return SupremePowerSection.builder()
-            .capacitorAurumCapacity(1000000)
-            .capacitorTitaniumCapacity(4000000)
+            .capacitorAurumCapacity(250000)
+            .capacitorTitaniumCapacity(1000000)
             .capacitorAdamantiumCapacity(16000)
             .capacitorThorniumCapacity(1000000)
             .capacitorSupremeCapacity(16000000)
-            .generatorBasicIgnisEnergy(2500)
+
+            .generatorBasicIgnisEnergy(50)
             .generatorBasicIgnisBuffer(5000)
-            .generatorBasicVentusEnergy(2500)
+
+            .generatorBasicVentusEnergy(50)
             .generatorBasicVentusBuffer(5000)
-            .generatorBasicAquaEnergy(2500)
+
+            .generatorBasicAquaEnergy(50)
             .generatorBasicAquaBuffer(5000)
-            .generatorBasicLuxEnergy(2500)
+
+            .generatorBasicLuxEnergy(50)
             .generatorBasicLuxBuffer(5000)
-            .generatorBasicLumiumEnergy(5000)
+
+            .generatorBasicLumiumEnergy(50)
             .generatorBasicLumiumBuffer(10000)
-            .generatorIgnisEnergy(25000)
+
+            .generatorIgnisEnergy(1000)
             .generatorIgnisBuffer(50000)
-            .generatorVentusEnergy(25000)
+
+            .generatorVentusEnergy(1000)
             .generatorVentusBuffer(50000)
-            .generatorAquaEnergy(25000)
+
+            .generatorAquaEnergy(1000)
             .generatorAquaBuffer(50000)
-            .generatorLuxEnergy(25000)
+
+            .generatorLuxEnergy(1000)
             .generatorLuxBuffer(50000)
-            .generatorLumiumEnergy(75000)
+
+            .generatorLumiumEnergy(1000)
             .generatorLumiumBuffer(500000)
-            .generatorThorniumEnergy(1000000)
+
+
+            .generatorThorniumEnergy(300000)
             .generatorThorniumBuffer(6000000)
-            .generatorSupremeEnergy(2000000)
+
+            .generatorSupremeEnergy(50000)
             .generatorSupremeBuffer(12000000)
             .build();
   }

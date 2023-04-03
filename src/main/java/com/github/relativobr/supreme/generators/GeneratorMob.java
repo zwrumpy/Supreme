@@ -14,6 +14,11 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.AbstractEnergyProvider;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.Future;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
@@ -22,19 +27,17 @@ import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Cow;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Pig;
-import org.bukkit.entity.Sheep;
+import org.bukkit.World;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 
 public class GeneratorMob extends AbstractEnergyProvider {
 
-  public static final int BASIC_GENERATOR_MOB_ENERGY = 50;
+  public static final int BASIC_GENERATOR_MOB_ENERGY = 25;
   public static final int BASIC_GENERATOR_MOB_BUFFER = 1000;
-  public static final int MEDIUM_GENERATOR_MOB_ENERGY = 200;
+  public static final int MEDIUM_GENERATOR_MOB_ENERGY = 50;
   public static final int MEDIUM_GENERATOR_MOB_BUFFER = 4000;
-  public static final int ADVANCED_GENERATOR_MOB_ENERGY = 800;
+  public static final int ADVANCED_GENERATOR_MOB_ENERGY = 100;
   public static final int ADVANCED_GENERATOR_MOB_BUFFER = 16000;
 
   public static final SlimefunItemStack GENERATOR_MOB_BASIC = new SupremeItemStack("SUPREME_GENERATOR_MOB_BASIC",
@@ -69,7 +72,7 @@ public class GeneratorMob extends AbstractEnergyProvider {
 
   private int energy;
   private int buffer;
-  private int mobRange = 3;
+  private int mobRange = 1;
 
   public GeneratorMob(SlimefunItemStack item, ItemStack[] recipe) {
     super(ItemGroups.ELECTRIC_CATEGORY, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe);
@@ -77,15 +80,35 @@ public class GeneratorMob extends AbstractEnergyProvider {
 
   @ParametersAreNonnullByDefault
   private boolean isAnimalNearby(Location l) {
-    try {
-      Predicate<Entity> predicate = this::isValidAnimal;
-      Future<Boolean> task = Bukkit.getScheduler().callSyncMethod(Supreme.inst(),
-          () -> l.getWorld().getNearbyEntities(l, mobRange, mobRange, mobRange, predicate).isEmpty());
-      return !task.get();
-    } catch (Exception e) {
-      e.printStackTrace();
-      return false;
+    for (Entity e : getEntitiesAroundPoint(l, mobRange)) {
+      if (e == null) continue;
+      if (!(e.getType() == EntityType.COW || e.getType() == EntityType.SHEEP || e.getType() == EntityType.PIG)) continue;
+      return true;
     }
+    return false;
+  }
+
+  public static List<Entity> getEntitiesAroundPoint(Location location, double radius) {
+    List<Entity> entities = new ArrayList<Entity>();
+    World world = location.getWorld();
+
+    int smallX = (int) Math.floor((location.getX() - radius) / 16.0D);
+    int bigX = (int) Math.floor((location.getX() + radius) / 16.0D);
+    int smallZ = (int) Math.floor((location.getZ() - radius) / 16.0D);
+    int bigZ = (int) Math.floor((location.getZ() + radius) / 16.0D);
+
+    for (int x = smallX; x <= bigX; x++)
+      for (int z = smallZ; z <= bigZ; z++)
+        if (world.isChunkLoaded(x, z))
+          entities.addAll(Arrays.asList(world.getChunkAt(x, z).getEntities()));
+
+    Iterator<Entity> entityIterator = entities.iterator();
+    while (entityIterator.hasNext()) {
+      if (entityIterator.next().getLocation().distanceSquared(location) > radius * radius) {
+        entityIterator.remove();
+      }
+    }
+    return entities;
   }
 
   @ParametersAreNonnullByDefault
