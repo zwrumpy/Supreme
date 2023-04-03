@@ -15,7 +15,7 @@ options:
   mob-tech-enable-iron-golem: true
   mob-tech-enable-zombie: true
   enable-quarry: true
-  limit-production-quarry: false
+  limit-production-quarry: true
   enable-weapons: true
   enable-tools: true
   enable-armor: true
@@ -92,16 +92,16 @@ quarry-custom-output:
   supreme_gold_quarry:
     1:
       item: "GOLD_INGOT"
-      chance: 20
+      chance: 1
       is-slimefun: false
     2:
       item: "GLOWSTONE_DUST"
       chance: 5
       is-slimefun: false
-    3:
-      item: "LAPIS_LAZULI"
-      chance: 20
-      is-slimefun: false
+#    3:
+#      item: "LAPIS_LAZULI"
+#      chance: 20
+#      is-slimefun: false
     4:
       item: "REDSTONE"
       chance: 20
@@ -123,18 +123,18 @@ quarry-custom-output:
       chance: 10
       is-slimefun: false
   supreme_diamond_quarry:
-    1:
-      item: "DIAMOND"
-      chance: 20
-      is-slimefun: false
-    2:
-      item: "EMERALD"
-      chance: 20
-      is-slimefun: false
-    3:
-      item: "QUARTZ"
-      chance: 20
-      is-slimefun: false
+#    1:
+#      item: "DIAMOND"
+#      chance: 20
+#      is-slimefun: false
+#    2:
+#      item: "EMERALD"
+#      chance: 20
+#      is-slimefun: false
+#    3:
+#      item: "QUARTZ"
+#      chance: 20
+#      is-slimefun: false
     4:
       item: "OBSIDIAN"
       chance: 5
@@ -158,12 +158,12 @@ quarry-custom-output:
   supreme_thornium_quarry:
     1:
       item: "SUPREME_THORNIUM_BIT"
-      chance: 5
+      chance: 1
       is-slimefun: true
-    2:
-      item: "NETHERITE_INGOT"
-      chance: 5
-      is-slimefun: false
+#    2:
+#      item: "NETHERITE_INGOT"
+#      chance: 5
+#      is-slimefun: false
     3:
       item: "IRON_BLOCK"
       chance: 15
@@ -172,39 +172,39 @@ quarry-custom-output:
       item: "COAL_BLOCK"
       chance: 15
       is-slimefun: false
-    5:
-      item: "LAPIS_BLOCK"
-      chance: 15
-      is-slimefun: false
-    6:
-      item: "QUARTZ_BLOCK"
-      chance: 15
-      is-slimefun: false
+#    5:
+#      item: "LAPIS_BLOCK"
+#      chance: 15
+#      is-slimefun: false
+#    6:
+#      item: "QUARTZ_BLOCK"
+#      chance: 15
+#      is-slimefun: false
     7:
       item: "REDSTONE_BLOCK"
       chance: 15
       is-slimefun: false
-    8:
-      item: "GOLD_BLOCK"
-      chance: 15
-      is-slimefun: false
+#    8:
+#      item: "GOLD_BLOCK"
+#      chance: 15
+#      is-slimefun: false
   supreme_supreme_nuggets_quarry:
     1:
       item: "SUPREME_SUPREME_NUGGET"
-      chance: 5
+      chance: 1
       is-slimefun: true
-    2:
-      item: "NETHERITE_BLOCK"
-      chance: 5
-      is-slimefun: false
-    3:
-      item: "EMERALD_BLOCK"
-      chance: 10
-      is-slimefun: false
-    4:
-      item: "DIAMOND_BLOCK"
-      chance: 10
-      is-slimefun: false
+#    2:
+#      item: "NETHERITE_BLOCK"
+#      chance: 5
+#      is-slimefun: false
+#    3:
+#      item: "EMERALD_BLOCK"
+#      chance: 10
+#      is-slimefun: false
+#    4:
+#      item: "DIAMOND_BLOCK"
+#      chance: 10
+#      is-slimefun: false
     5:
       item: "SUPREME_THORNIUM_BIT"
       chance: 10
@@ -217,10 +217,10 @@ quarry-custom-output:
       item: "IRON_BLOCK"
       chance: 20
       is-slimefun: false
-    8:
-      item: "GOLD_BLOCK"
-      chance: 20
-      is-slimefun: false
+#    8:
+#      item: "GOLD_BLOCK"
+#      chance: 20
+#      is-slimefun: false
 # -------------------------------
 # supreme-enchant
 # -------------------------------
@@ -284,112 +284,112 @@ supreme-enchant:
     unbreaking: 10
     sharpness: 10
   supreme_sword_thornium:
-    unbreakable: true
+    unbreakable: false
     sharpness: 7
     looting: 5
     fire_aspect: 3
     mending: 7
   supreme_sword_magic:
-    unbreakable: true
+    unbreakable: false
     sharpness: 16
     looting: 6
     fire_aspect: 6
     mending: 10
   supreme_sword_rare:
-    unbreakable: true
+    unbreakable: false
     sharpness: 24
     looting: 8
     fire_aspect: 8
     mending: 10
   supreme_sword_epic:
-    unbreakable: true
+    unbreakable: false
     sharpness: 33
     looting: 10
     fire_aspect: 10
     mending: 15
   supreme_sword_legendary:
-    unbreakable: true
+    unbreakable: false
     sharpness: 40
     looting: 15
     fire_aspect: 15
     mending: 15
   supreme_sword_supreme:
-    unbreakable: true
+    unbreakable: false
     sharpness: 50
     looting: 20
     fire_aspect: 20
     mending: 20
   supreme_bow_thornium:
-    unbreakable: true
+    unbreakable: false
     power: 7
     flame: 3
     infinity: 5
     unbreaking: 3
   supreme_bow_magic:
-    unbreakable: true
+    unbreakable: false
     power: 16
     flame: 5
     infinity: 10
     unbreaking: 5
   supreme_bow_rare:
-    unbreakable: true
+    unbreakable: false
     power: 24
     flame: 7
     infinity: 15
     unbreaking: 7
   supreme_bow_epic:
-    unbreakable: true
+    unbreakable: false
     power: 33
     flame: 10
     infinity: 20
     punch: 1
     unbreaking: 10
   supreme_bow_legendary:
-    unbreakable: true
+    unbreakable: false
     power: 40
     flame: 15
     infinity: 25
     punch: 2
     unbreaking: 15
   supreme_bow_supreme:
-    unbreakable: true
+    unbreakable: false
     power: 50
     flame: 20
     infinity: 50
     punch: 3
     unbreaking: 20
   supreme_shield_thornium:
-    unbreakable: true
+    unbreakable: false
     protection: 7
     unbreaking: 7
     thorns: 5
     mending: 7
   supreme_shield_magic:
-    unbreakable: true
+    unbreakable: false
     protection: 10
     unbreaking: 10
     thorns: 7
     mending: 10
   supreme_shield_rare:
-    unbreakable: true
+    unbreakable: false
     protection: 20
     unbreaking: 20
     thorns: 9
     mending: 10
   supreme_shield_epic:
-    unbreakable: true
+    unbreakable: false
     protection: 30
     unbreaking: 30
     thorns: 13
     mending: 15
   supreme_shield_legendary:
-    unbreakable: true
+    unbreakable: false
     protection: 40
     unbreaking: 30
     thorns: 30
     mending: 15
   supreme_shield_supreme:
-    unbreakable: true
+    unbreakable: false
     protection: 50
     unbreaking: 50
     thorns: 20
@@ -407,37 +407,37 @@ supreme-enchant:
     efficiency: 10
     unbreaking: 10
   supreme_axe_thornium:
-    unbreakable: true
+    unbreakable: false
     efficiency: 7
     fortune: 5
     mending: 7
     unbreaking: 7
   supreme_axe_magic:
-    unbreakable: true
+    unbreakable: false
     efficiency: 10
     fortune: 7
     mending: 10
     unbreaking: 10
   supreme_axe_rare:
-    unbreakable: true
+    unbreakable: false
     efficiency: 20
     fortune: 10
     mending: 10
     unbreaking: 20
   supreme_axe_epic:
-    unbreakable: true
+    unbreakable: false
     efficiency: 30
     fortune: 10
     mending: 15
     unbreaking: 30
   supreme_axe_legendary:
-    unbreakable: true
+    unbreakable: false
     efficiency: 40
     fortune: 20
     mending: 15
     unbreaking: 40
   supreme_axe_supreme:
-    unbreakable: true
+    unbreakable: false
     efficiency: 50
     fortune: 30
     mending: 20
@@ -455,37 +455,37 @@ supreme-enchant:
     efficiency: 10
     unbreaking: 10
   supreme_pickaxe_thornium:
-    unbreakable: true
+    unbreakable: false
     efficiency: 7
     fortune: 5
     mending: 7
     unbreaking: 7
   supreme_pickaxe_magic:
-    unbreakable: true
+    unbreakable: false
     efficiency: 10
     fortune: 7
     mending: 10
     unbreaking: 10
   supreme_pickaxe_rare:
-    unbreakable: true
+    unbreakable: false
     efficiency: 20
     fortune: 10
     mending: 10
     unbreaking: 20
   supreme_pickaxe_epic:
-    unbreakable: true
+    unbreakable: false
     efficiency: 30
     fortune: 10
     mending: 15
     unbreaking: 30
   supreme_pickaxe_legendary:
-    unbreakable: true
+    unbreakable: false
     efficiency: 40
     fortune: 20
     mending: 15
     unbreaking: 40
   supreme_pickaxe_supreme:
-    unbreakable: true
+    unbreakable: false
     efficiency: 50
     fortune: 30
     mending: 20
@@ -503,37 +503,37 @@ supreme-enchant:
     efficiency: 10
     unbreaking: 10
   supreme_shovel_thornium:
-    unbreakable: true
+    unbreakable: false
     efficiency: 7
     silk_touch: 5
     mending: 7
     unbreaking: 7
   supreme_shovel_magic:
-    unbreakable: true
+    unbreakable: false
     efficiency: 10
     fortune: 7
     mending: 10
     unbreaking: 10
   supreme_shovel_rare:
-    unbreakable: true
+    unbreakable: false
     efficiency: 20
     fortune: 10
     mending: 10
     unbreaking: 20
   supreme_shovel_epic:
-    unbreakable: true
+    unbreakable: false
     efficiency: 30
     fortune: 10
     mending: 15
     unbreaking: 30
   supreme_shovel_legendary:
-    unbreakable: true
+    unbreakable: false
     efficiency: 40
     fortune: 20
     mending: 15
     unbreaking: 40
   supreme_shovel_supreme:
-    unbreakable: true
+    unbreakable: false
     efficiency: 50
     fortune: 30
     mending: 20
@@ -671,7 +671,7 @@ supreme-enchant:
     depth_strider: 2
     mending: 0
   supreme_boots_thornium:
-    unbreakable: true
+    unbreakable: false
     protection: 7
     fire_protection: 5
     blast_protection: 5
@@ -682,7 +682,7 @@ supreme-enchant:
     depth_strider: 5
     mending: 7
   supreme_boots_magic:
-    unbreakable: true
+    unbreakable: false
     protection: 10
     fire_protection: 7
     blast_protection: 7
@@ -693,7 +693,7 @@ supreme-enchant:
     depth_strider: 7
     mending: 10
   supreme_boots_rare:
-    unbreakable: true
+    unbreakable: false
     protection: 20
     fire_protection: 10
     blast_protection: 10
@@ -704,7 +704,7 @@ supreme-enchant:
     depth_strider: 10
     mending: 10
   supreme_boots_epic:
-    unbreakable: true
+    unbreakable: false
     protection: 30
     fire_protection: 20
     blast_protection: 20
@@ -715,7 +715,7 @@ supreme-enchant:
     depth_strider: 20
     mending: 15
   supreme_boots_legendary:
-    unbreakable: true
+    unbreakable: false
     protection: 35
     fire_protection: 25
     blast_protection: 25
@@ -726,7 +726,7 @@ supreme-enchant:
     depth_strider: 25
     mending: 20
   supreme_boots_supreme:
-    unbreakable: true
+    unbreakable: false
     protection: 50
     fire_protection: 50
     blast_protection: 50
@@ -737,7 +737,7 @@ supreme-enchant:
     depth_strider: 40
     mending: 20
   supreme_chestplate_thornium:
-    unbreakable: true
+    unbreakable: false
     protection: 7
     fire_protection: 5
     blast_protection: 5
@@ -746,7 +746,7 @@ supreme-enchant:
     mending: 7
     thorns: 5
   supreme_chestplate_magic:
-    unbreakable: true
+    unbreakable: false
     protection: 10
     fire_protection: 7
     blast_protection: 7
@@ -755,7 +755,7 @@ supreme-enchant:
     mending: 10
     thorns: 7
   supreme_chestplate_rare:
-    unbreakable: true
+    unbreakable: false
     protection: 20
     fire_protection: 10
     blast_protection: 10
@@ -764,7 +764,7 @@ supreme-enchant:
     mending: 10
     thorns: 9
   supreme_chestplate_epic:
-    unbreakable: true
+    unbreakable: false
     protection: 30
     fire_protection: 20
     blast_protection: 20
@@ -773,7 +773,7 @@ supreme-enchant:
     mending: 15
     thorns: 11
   supreme_chestplate_legendary:
-    unbreakable: true
+    unbreakable: false
     protection: 35
     fire_protection: 25
     blast_protection: 25
@@ -782,7 +782,7 @@ supreme-enchant:
     mending: 15
     thorns: 13
   supreme_chestplate_supreme:
-    unbreakable: true
+    unbreakable: false
     protection: 50
     fire_protection: 50
     blast_protection: 50
@@ -791,7 +791,7 @@ supreme-enchant:
     mending: 20
     thorns: 20
   supreme_helmet_thornium:
-    unbreakable: true
+    unbreakable: false
     protection: 7
     fire_protection: 5
     blast_protection: 5
@@ -802,7 +802,7 @@ supreme-enchant:
     respiration: 5
     aqua_affinity: 5
   supreme_helmet_magic:
-    unbreakable: true
+    unbreakable: false
     protection: 10
     fire_protection: 7
     blast_protection: 7
@@ -813,7 +813,7 @@ supreme-enchant:
     respiration: 7
     aqua_affinity: 7
   supreme_helmet_rare:
-    unbreakable: true
+    unbreakable: false
     protection: 20
     fire_protection: 10
     blast_protection: 10
@@ -824,7 +824,7 @@ supreme-enchant:
     respiration: 10
     aqua_affinity: 10
   supreme_helmet_epic:
-    unbreakable: true
+    unbreakable: false
     protection: 30
     fire_protection: 20
     blast_protection: 20
@@ -835,7 +835,7 @@ supreme-enchant:
     respiration: 20
     aqua_affinity: 20
   supreme_helmet_legendary:
-    unbreakable: true
+    unbreakable: false
     protection: 35
     fire_protection: 25
     blast_protection: 25
@@ -846,7 +846,7 @@ supreme-enchant:
     respiration: 25
     aqua_affinity: 25
   supreme_helmet_supreme:
-    unbreakable: true
+    unbreakable: false
     protection: 50
     fire_protection: 50
     blast_protection: 50
@@ -857,7 +857,7 @@ supreme-enchant:
     respiration: 50
     aqua_affinity: 50
   supreme_leggings_thornium:
-    unbreakable: true
+    unbreakable: false
     protection: 7
     fire_protection: 5
     blast_protection: 5
@@ -866,7 +866,7 @@ supreme-enchant:
     mending: 7
     thorns: 5
   supreme_leggings_magic:
-    unbreakable: true
+    unbreakable: false
     protection: 10
     fire_protection: 7
     blast_protection: 7
@@ -875,7 +875,7 @@ supreme-enchant:
     mending: 10
     thorns: 7
   supreme_leggings_rare:
-    unbreakable: true
+    unbreakable: false
     protection: 20
     fire_protection: 10
     blast_protection: 10
@@ -884,7 +884,7 @@ supreme-enchant:
     mending: 10
     thorns: 9
   supreme_leggings_epic:
-    unbreakable: true
+    unbreakable: false
     protection: 30
     fire_protection: 20
     blast_protection: 20
@@ -893,7 +893,7 @@ supreme-enchant:
     mending: 15
     thorns: 11
   supreme_leggings_legendary:
-    unbreakable: true
+    unbreakable: false
     protection: 35
     fire_protection: 25
     blast_protection: 25
@@ -902,7 +902,7 @@ supreme-enchant:
     mending: 15
     thorns: 13
   supreme_leggings_supreme:
-    unbreakable: true
+    unbreakable: false
     protection: 50
     fire_protection: 50
     blast_protection: 50
