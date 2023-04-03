@@ -174,9 +174,18 @@ public class TechMutation extends SimpleItemContainerMachine implements Radioact
     });
   }
 
+  boolean isInputsEmpty(BlockMenu inv) {
+    if ((inv.getItemInSlot(13) == null) || (inv.getItemInSlot(15) == null)) return true;
+    if ((inv.getItemInSlot(13).getType() == null) || (inv.getItemInSlot(15).getType() == null)) return true;
+    if ((inv.getItemInSlot(13).getType() == Material.AIR) || (inv.getItemInSlot(15).getType() == Material.AIR)) return true;
+    return false;
+  }
+
   public void tick(Block b) {
 
     BlockMenu inv = BlockStorage.getInventory(b);
+
+    if (isInputsEmpty(inv)) return;
 
     final MobTechMutationGeneric itemNaReceita = validRecipeItem(inv);
     final MobTechMutationGeneric itemProduzindo = processing.get(b);
