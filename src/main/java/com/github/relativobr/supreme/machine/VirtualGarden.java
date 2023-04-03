@@ -147,7 +147,7 @@ public class VirtualGarden extends SimpleItemWithLargeContainerMachine {
   }
 
   private int progressTick = 0;
-  private int progressInterval = 8;
+  private int progressInterval = 16;
 
   @Override
   public void tick(Block b) {
