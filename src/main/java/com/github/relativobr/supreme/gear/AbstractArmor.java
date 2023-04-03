@@ -24,6 +24,11 @@ public class AbstractArmor extends SlimefunArmorPiece implements ProtectiveArmor
             EnchantsAndEffectsUtil.getPotionEffects(item));
   }
 
+  @Override
+  public boolean isDisenchantable() {
+    return false;
+  }
+
   public static void setup(Supreme sup) {
 
     // add Enchant

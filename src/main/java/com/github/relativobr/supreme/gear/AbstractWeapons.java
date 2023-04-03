@@ -20,6 +20,11 @@ public class AbstractWeapons extends SlimefunItem implements Soulbound, NotPlace
     super(ItemGroups.WEAPONS_CATEGORY, stack, MultiBlockGearFabricator.getMachine(), recipe);
   }
 
+  @Override
+  public boolean isDisenchantable() {
+    return false;
+  }
+
   public static void setup(Supreme sup) {
 
     // add Enchant
