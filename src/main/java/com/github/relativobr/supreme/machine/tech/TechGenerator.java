@@ -55,7 +55,7 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
       + "materials.", "",
       LoreBuilder.radioactive(Radioactivity.LOW), "",
       LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
-      UtilEnergy.energyPowerPerTick(2000), "", "&3Supreme Machine");
+      UtilEnergy.energyPowerPerTick(10000), "", "&3Supreme Machine");
 
   public static final ItemStack[] RECIPE_TECH_GENERATOR = {SupremeComponents.INDUCTIVE_MACHINE,
       SupremeComponents.SYNTHETIC_RUBY, SupremeComponents.INDUCTIVE_MACHINE,
@@ -207,7 +207,17 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
     });
   }
 
+  private int progressTick = 0;
+  private int progressInterval = 8;
+
   public void tick(Block b) {
+    if (progressTick >= progressInterval) {
+      update(b);
+      progressTick = 0;
+    } else progressTick++;
+  }
+
+  public void update(Block b) {
 
     BlockMenu inv = BlockStorage.getInventory(b);
 
@@ -255,7 +265,7 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
   }
 
   private void checkCloneOutput(BlockMenu inv, ItemStack itemStack) {
-    itemStack.setAmount(32);
+    itemStack.setAmount(16);
     inv.pushItem(itemStack, this.getOutputSlots());
     buildSlotProcess(inv.getItemInSlot(getInputSlots()[1]), itemStack, inv);
     buildSlotProcess(inv.getItemInSlot(getInputSlots()[2]), itemStack, inv);
