@@ -87,7 +87,7 @@ public class AbstractQuarry extends SlimefunItem implements EnergyNetComponent {
   }
 
   private int progressTick = 0;
-  private int progressInterval = 10;
+  private int progressInterval = 20;
 
   public void tick(Block b) {
     if (progressTick >= progressInterval) {

@@ -171,8 +171,18 @@ public class VirtualAquarium extends SimpleItemWithLargeContainerMachine {
     return null;
   }
 
+  private int progressTick = 0;
+  private int progressInterval = 6;
+
   @Override
   public void tick(Block b) {
+    if (progressTick >= progressInterval) {
+      update(b);
+      progressTick = 0;
+    } else progressTick++;
+  }
+
+  public void update(Block b) {
     BlockMenu inv = BlockStorage.getInventory(b);
     if (isProcessing(b)) {
       if (takeCharge(b.getLocation())) {
