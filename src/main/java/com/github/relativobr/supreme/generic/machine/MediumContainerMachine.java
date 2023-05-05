@@ -184,7 +184,7 @@ public class MediumContainerMachine extends AContainer implements NotHopperable,
 
   public int getTimeProcess() {
     if(timeProcess == null){
-      timeProcess = 15;
+      timeProcess = 15 * this.progressInterval;
     }
     return this.timeProcess;
   }
