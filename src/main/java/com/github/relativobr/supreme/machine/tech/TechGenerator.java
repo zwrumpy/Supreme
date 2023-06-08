@@ -109,6 +109,7 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
     TechGenerator.addRecipesToProcess(item, output);
   }
 
+  @Nonnull
   private static ItemStack getCardTier(int tierCard) {
     if (tierCard >= 3) {
       return SupremeComponents.CENTER_CARD_ULTIMATE;
@@ -314,7 +315,6 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
   }
 
   private void processTicks(Block b, BlockMenu inv, ItemStack result) {
-    int ticksTotal = getTimeProcess() * 2;
     int ticksLeft = this.getProgressTime(b);
     if (ticksLeft > 0) {
 
@@ -327,9 +327,11 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
         }
         progressTime.put(b, time);
 
+        int ticksTotal = getTimeProcess() * 2;
+
         for (int i : InventoryRecipe.TECH_GENERATOR_PROGRESS_BAR_SLOT) {
           ChestMenuUtils.updateProgressbar(inv, i, Math.round(ticksLeft / this.getSpeed()),
-              Math.round(ticksTotal / this.getSpeed()), result);
+              Math.round((float) ticksTotal / this.getSpeed()), result);
         }
       } else {
         final int downConsumption = checkDownConsumption(this.getEnergyConsumption(), inv);
@@ -403,11 +405,12 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
         MobTechType mobTechType = MobTechType.valueOf(PersistentDataAPI.getString(itemMeta, type));
         int mobTechTier = PersistentDataAPI.getInt(itemMeta, tier);
         float perceptual = (mobTechTier + 1) * input.getAmount() * 0.15625F;
-        int adjustEnergy = Math.round(consumption / 100F * perceptual);
         if (mobTechType == MobTechType.ROBOTIC_EFFICIENCY || mobTechType == MobTechType.MUTATION_INTELLIGENCE) {
+          int adjustEnergy = Math.round(consumption / 100F * perceptual);
           consumption = consumption - adjustEnergy;
         }
         if (mobTechType == MobTechType.ROBOTIC_ACCELERATION || mobTechType == MobTechType.MUTATION_BERSERK) {
+          int adjustEnergy = Math.round(consumption / 100F * perceptual);
           consumption = consumption + adjustEnergy;
         }
       } else {
@@ -422,6 +425,7 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
     return consumption;
   }
 
+  @Nullable
   private ItemStack validRecipeItem(BlockMenu inv) {
 
     for (AbstractItemRecipe produce : this.getRecipeProcess()) {
@@ -438,15 +442,14 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
   @Override
   public List<ItemStack> getDisplayRecipes() {
     List<ItemStack> displayRecipes = new ArrayList();
-    this.getRecipeShow()
-        .stream().filter(Objects::nonNull)
-        .forEach(recipe -> {
-          ItemStack itemStack = recipe.getFirstItemOutput().clone();
-          itemStack.setAmount(Supreme.getSupremeOptions().getMaxAmountTechGenerator());
-          displayRecipes.add(recipe.getFirstItemInput());
-          displayRecipes.add(itemStack);
-
-        });
+    for (AbstractItemRecipe recipe : this.getRecipeShow()) {
+      if (recipe != null) {
+        ItemStack itemStack = recipe.getFirstItemOutput().clone();
+        itemStack.setAmount(Supreme.getSupremeOptions().getMaxAmountTechGenerator());
+        displayRecipes.add(recipe.getFirstItemInput());
+        displayRecipes.add(itemStack);
+      }
+    }
     return displayRecipes;
   }
 
