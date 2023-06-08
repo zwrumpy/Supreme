@@ -1,15 +1,14 @@
 package com.github.relativobr.supreme.machine.tech;
 
-import com.github.relativobr.supreme.machine.tech.MobTechGeneric.MobTechType;
-import com.github.relativobr.supreme.generic.machine.SimpleItemContainerMachine;
-import com.github.relativobr.supreme.generic.recipe.InventoryRecipe;
-import com.github.relativobr.supreme.generic.recipe.AbstractItemRecipe;
 import com.github.relativobr.supreme.Supreme;
+import com.github.relativobr.supreme.generic.machine.SimpleItemContainerMachine;
+import com.github.relativobr.supreme.generic.recipe.AbstractItemRecipe;
+import com.github.relativobr.supreme.generic.recipe.InventoryRecipe;
+import com.github.relativobr.supreme.machine.tech.MobTechGeneric.MobTechType;
 import com.github.relativobr.supreme.resource.SupremeComponents;
 import com.github.relativobr.supreme.resource.mobtech.MobTech;
 import com.github.relativobr.supreme.util.ItemGroups;
 import com.github.relativobr.supreme.util.SupremeItemStack;
-import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
 import com.github.relativobr.supreme.util.UtilEnergy;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
@@ -19,17 +18,13 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactive;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.implementation.items.blocks.UnplaceableBlock;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import javax.annotation.Nonnull;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
@@ -37,14 +32,24 @@ import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
-import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.springframework.scheduling.annotation.Async;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Async
 public class TechGenerator extends SimpleItemContainerMachine implements Radioactive {
@@ -65,8 +70,8 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
       SlimefunItems.HEATING_COIL, SupremeComponents.CARRIAGE_MACHINE};
 
   public static final List<AbstractItemRecipe> receitasParaProduzir = new ArrayList<>();
-  private Map<Block, ItemStack> processing = new HashMap<Block, ItemStack>();
-  private Map<Block, Integer> progressTime = new HashMap<Block, Integer>();
+  private Map<Block, ItemStack> processing = new HashMap<>();
+  private Map<Block, Integer> progressTime = new HashMap<>();
   private int speed = 1;
 
   public TechGenerator(SlimefunItemStack item, ItemStack[] recipe) {
@@ -202,7 +207,7 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
       }
 
       public boolean isSynchronized() {
-        return true;
+        return false;
       }
     });
   }
@@ -221,9 +226,14 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
 
     BlockMenu inv = BlockStorage.getInventory(b);
 
-    final ItemStack validRecipeItem = validRecipeItem(inv);
+    // Unlikely but blockmenus can be null
+    if (inv == null) {
+      return;
+    }
+
     final ItemStack itemProduction = processing.get(b);
     if (itemProduction == null) {
+      final ItemStack validRecipeItem = validRecipeItem(inv);
 
       if (validRecipeItem != null) {
 
@@ -249,6 +259,7 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
         invalidStatus(inv, Material.BLACK_STAINED_GLASS_PANE, " ");
 
       } else {
+        final ItemStack validRecipeItem = validRecipeItem(inv);
 
         if (SlimefunUtils.isItemSimilar(validRecipeItem, itemProduction, false, false)) {
 
@@ -265,7 +276,7 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
   }
 
   private void checkCloneOutput(BlockMenu inv, ItemStack itemStack) {
-    itemStack.setAmount(16);
+    itemStack.setAmount(Supreme.getSupremeOptions().getMaxAmountTechGenerator());
     inv.pushItem(itemStack, this.getOutputSlots());
     buildSlotProcess(inv.getItemInSlot(getInputSlots()[1]), itemStack, inv);
     buildSlotProcess(inv.getItemInSlot(getInputSlots()[2]), itemStack, inv);
@@ -384,20 +395,28 @@ public class TechGenerator extends SimpleItemContainerMachine implements Radioac
   }
 
   private int checkConsumptionSlot(ItemStack input, int consumption) {
-    if (input != null) {
-      SlimefunItem slimefunItem = SlimefunItem.getByItem(input);
-      if (slimefunItem instanceof MobTech) {
-        final MobTech mobTech = (MobTech) slimefunItem;
-        float perceptual = (mobTech.getMobTechTier() + 1) * input.getAmount() * 0.15625F;
+    if (input != null && !input.getType().isAir() && input.getItemMeta() != null) {
+      NamespacedKey tier = new NamespacedKey(Supreme.inst(), "mob_tech_tier");
+      NamespacedKey type = new NamespacedKey(Supreme.inst(), "mob_tech_type");
+      ItemMeta itemMeta = input.getItemMeta();
+      if (PersistentDataAPI.hasInt(itemMeta, tier) && PersistentDataAPI.hasString(itemMeta, type)) {
+        MobTechType mobTechType = MobTechType.valueOf(PersistentDataAPI.getString(itemMeta, type));
+        int mobTechTier = PersistentDataAPI.getInt(itemMeta, tier);
+        float perceptual = (mobTechTier + 1) * input.getAmount() * 0.15625F;
         int adjustEnergy = Math.round(consumption / 100F * perceptual);
-        if (mobTech.getMobTechType() == MobTechType.ROBOTIC_EFFICIENCY
-            || mobTech.getMobTechType() == MobTechType.MUTATION_INTELLIGENCE) {
+        if (mobTechType == MobTechType.ROBOTIC_EFFICIENCY || mobTechType == MobTechType.MUTATION_INTELLIGENCE) {
           consumption = consumption - adjustEnergy;
         }
-        if (mobTech.getMobTechType() == MobTechType.ROBOTIC_ACCELERATION
-            || mobTech.getMobTechType() == MobTechType.MUTATION_BERSERK) {
+        if (mobTechType == MobTechType.ROBOTIC_ACCELERATION || mobTechType == MobTechType.MUTATION_BERSERK) {
           consumption = consumption + adjustEnergy;
         }
+      } else {
+          SlimefunItem slimefunItem = SlimefunItem.getByItem(input);
+          if (slimefunItem instanceof MobTech) {
+            PersistentDataAPI.setInt(itemMeta, tier, ((MobTech) slimefunItem).getMobTechTier());
+            PersistentDataAPI.setString(itemMeta, type, ((MobTech) slimefunItem).getMobTechType().name());
+            input.setItemMeta(itemMeta);
+          }
       }
     }
     return consumption;

@@ -6,6 +6,7 @@ options:
   custom-ticker-delay: 2
   enable-generators: true
   limit-production-generators: false
+  delay-time-valid-generators: 600
   base-time-virtual-garden: 15
   base-time-virtual-aquarium: 15
   base-time-mob-collector: 15
@@ -15,7 +16,7 @@ options:
   mob-tech-enable-iron-golem: true
   mob-tech-enable-zombie: true
   enable-quarry: true
-  limit-production-quarry: true
+  limit-production-quarry: false
   enable-weapons: true
   enable-tools: true
   enable-armor: true
@@ -42,7 +43,7 @@ quarry-custom-output:
   supreme_coal_quarry:
     1:
       item: "COAL"
-      chance: 10
+      chance: 20
       is-slimefun: false
     2:
       item: "MYCELIUM"

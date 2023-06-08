@@ -35,6 +35,8 @@ public class SetupSimpleCard {
 
     TechGenerator.preSetup(plugin, SimpleCard.CARD_SNOW, Material.SNOW_BLOCK, Material.SNOW_BLOCK);
 
+    TechGenerator.preSetup(plugin, SimpleCard.CARD_APPLE, Material.APPLE, Material.APPLE);
+
     TechGenerator.preSetup(plugin, SimpleCard.CARD_NETHER_STAR, Material.NETHER_STAR, Material.NETHER_STAR);
 
     TechGenerator.preSetup(plugin, SimpleCard.CARD_WITHER_ROSE, Material.WITHER_ROSE, Material.WITHER_ROSE);
@@ -67,6 +69,8 @@ public class SetupSimpleCard {
 
     TechGenerator.preSetup(plugin, SimpleCard.CARD_EMERALD, Material.EMERALD_BLOCK, Material.EMERALD);
 
+    TechGenerator.preSetup(plugin, SimpleCard.CARD_BLAZE_ROD, Material.BLAZE_ROD, Material.BLAZE_ROD);
+
     if(customBc){
       TechGenerator.preSetup(plugin, SimpleCard.CARD_NETHERITE, Material.NETHERITE_BLOCK, Material.NETHERITE_SCRAP);
     } else {
@@ -94,6 +98,5 @@ public class SetupSimpleCard {
     TechGenerator.preSetup(plugin, SimpleCard.CARD_TIN_DUST, SlimefunItems.TIN_DUST, SlimefunItems.TIN_DUST);
 
     TechGenerator.preSetup(plugin, SimpleCard.CARD_ZINC_DUST, SlimefunItems.ZINC_DUST, SlimefunItems.ZINC_DUST);
-
   }
 }

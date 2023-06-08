@@ -1,7 +1,5 @@
 package com.github.relativobr.supreme.generators;
 
-import static com.github.relativobr.supreme.util.ItemUtil.getValueGeneratorsWithLimit;
-
 import com.github.relativobr.supreme.Supreme;
 import com.github.relativobr.supreme.resource.SupremeComponents;
 import com.github.relativobr.supreme.util.ItemGroups;
@@ -14,11 +12,6 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.AbstractEnergyProvider;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.Future;
 import java.util.function.Predicate;
 import javax.annotation.Nonnull;
@@ -27,9 +20,21 @@ import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Cow;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Pig;
+import org.bukkit.entity.Sheep;
 import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Future;
+import java.util.function.Predicate;
+
+import static com.github.relativobr.supreme.util.ItemUtil.getValueGeneratorsWithLimit;
 
 public class GeneratorMob extends AbstractEnergyProvider {
 
@@ -80,35 +85,15 @@ public class GeneratorMob extends AbstractEnergyProvider {
 
   @ParametersAreNonnullByDefault
   private boolean isAnimalNearby(Location l) {
-    for (Entity e : getEntitiesAroundPoint(l, mobRange)) {
-      if (e == null) continue;
-      if (!(e.getType() == EntityType.COW || e.getType() == EntityType.SHEEP || e.getType() == EntityType.PIG)) continue;
-      return true;
+    try {
+      Predicate<Entity> predicate = this::isValidAnimal;
+      Future<Boolean> task = Bukkit.getScheduler().callSyncMethod(Supreme.inst(),
+          () -> l.getWorld().getNearbyEntities(l, mobRange, mobRange, mobRange, predicate).isEmpty());
+      return !task.get();
+    } catch (Exception e) {
+      e.printStackTrace();
+      return false;
     }
-    return false;
-  }
-
-  public static List<Entity> getEntitiesAroundPoint(Location location, double radius) {
-    List<Entity> entities = new ArrayList<Entity>();
-    World world = location.getWorld();
-
-    int smallX = (int) Math.floor((location.getX() - radius) / 16.0D);
-    int bigX = (int) Math.floor((location.getX() + radius) / 16.0D);
-    int smallZ = (int) Math.floor((location.getZ() - radius) / 16.0D);
-    int bigZ = (int) Math.floor((location.getZ() + radius) / 16.0D);
-
-    for (int x = smallX; x <= bigX; x++)
-      for (int z = smallZ; z <= bigZ; z++)
-        if (world.isChunkLoaded(x, z))
-          entities.addAll(Arrays.asList(world.getChunkAt(x, z).getEntities()));
-
-    Iterator<Entity> entityIterator = entities.iterator();
-    while (entityIterator.hasNext()) {
-      if (entityIterator.next().getLocation().distanceSquared(location) > radius * radius) {
-        entityIterator.remove();
-      }
-    }
-    return entities;
   }
 
   @ParametersAreNonnullByDefault
