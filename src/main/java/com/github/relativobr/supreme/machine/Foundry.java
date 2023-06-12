@@ -1,5 +1,6 @@
 package com.github.relativobr.supreme.machine;
 
+import com.github.relativobr.supreme.generic.machine.FoundryContainerMachine;
 import com.github.relativobr.supreme.generic.machine.MediumContainerMachine;
 import com.github.relativobr.supreme.generic.recipe.AbstractItemRecipe;
 import com.github.relativobr.supreme.resource.SupremeComponents;
@@ -30,7 +31,7 @@ import org.bukkit.inventory.ItemStack;
 import org.springframework.scheduling.annotation.Async;
 
 @Async
-public class Foundry extends MediumContainerMachine {
+public class Foundry extends FoundryContainerMachine {
 
   public static final SlimefunItemStack FOUNDRY_MACHINE = new SupremeItemStack("SUPREME_FOUNDRY_I", Material.GRINDSTONE,
       "&bFoundry", "", "&fFoundry and Synthesizer Items", "",

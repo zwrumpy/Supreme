@@ -1,7 +1,5 @@
 package com.github.relativobr.supreme.generic.machine;
 
-import static java.util.Objects.nonNull;
-
 import com.github.relativobr.supreme.generic.recipe.AbstractItemRecipe;
 import com.github.relativobr.supreme.generic.recipe.InventoryRecipe;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
@@ -16,14 +14,6 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
@@ -39,10 +29,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.*;
+
+import static java.util.Objects.nonNull;
+
 /**
  * Machine that can use up to 9 items in the input and only 1 item in the output
  */
-public class MediumContainerMachine extends AContainer implements NotHopperable, RecipeDisplayItem {
+public class FoundryContainerMachine extends AContainer implements NotHopperable, RecipeDisplayItem {
 
   private final Map<Block, MachineRecipe> processing = new HashMap<Block, MachineRecipe>();
   private final Map<Block, Integer> progressItem = new HashMap<Block, Integer>();
@@ -56,8 +52,8 @@ public class MediumContainerMachine extends AContainer implements NotHopperable,
   }
 
   @ParametersAreNonnullByDefault
-  public MediumContainerMachine(ItemGroup category, SlimefunItemStack item, RecipeType recipeType,
-      ItemStack[] recipe) {
+  public FoundryContainerMachine(ItemGroup category, SlimefunItemStack item, RecipeType recipeType,
+                                 ItemStack[] recipe) {
     super(category, item, recipeType, recipe);
 
     addItemHandler(onBlockBreak());
@@ -172,12 +168,12 @@ public class MediumContainerMachine extends AContainer implements NotHopperable,
     ));
   }
 
-  public MediumContainerMachine setMachineRecipes(@Nonnull List<AbstractItemRecipe> machineRecipes) {
+  public FoundryContainerMachine setMachineRecipes(@Nonnull List<AbstractItemRecipe> machineRecipes) {
     this.machineRecipes = machineRecipes;
     return this;
   }
 
-  public MediumContainerMachine setTimeProcess(int timeProcess) {
+  public FoundryContainerMachine setTimeProcess(int timeProcess) {
     this.timeProcess = timeProcess;
     return this;
   }
@@ -272,7 +268,7 @@ public class MediumContainerMachine extends AContainer implements NotHopperable,
     return nonNull(this.machineIdentifier) ? this.machineIdentifier : "MachineIdentifier";
   }
 
-  public MediumContainerMachine setMachineIdentifier(@Nonnull String machineIdentifier) {
+  public FoundryContainerMachine setMachineIdentifier(@Nonnull String machineIdentifier) {
     this.machineIdentifier = machineIdentifier;
     return this;
   }
@@ -291,6 +287,14 @@ public class MediumContainerMachine extends AContainer implements NotHopperable,
 
   protected void update(Block b) {
     BlockMenu inv = BlockStorage.getInventory(b);
+
+    for (int slot : getInputSlots()){
+      ItemStack stack = inv.getItemInSlot(slot);
+      if (Objects.nonNull(stack.getType())) {
+        if (stack.getType() == Material.AIR) continue;
+      }
+      if (stack.getAmount() < 3) return;
+    }
 
     if (this.isProcessing(b)) {
 

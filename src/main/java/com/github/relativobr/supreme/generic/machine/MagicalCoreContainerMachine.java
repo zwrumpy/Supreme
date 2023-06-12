@@ -1,9 +1,8 @@
 package com.github.relativobr.supreme.generic.machine;
 
-import static java.util.Objects.nonNull;
-
 import com.github.relativobr.supreme.generic.recipe.AbstractItemRecipe;
 import com.github.relativobr.supreme.generic.recipe.InventoryRecipe;
+import com.github.relativobr.supreme.resource.magical.SupremeCore;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -16,14 +15,6 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.AContainer;
@@ -39,10 +30,16 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.*;
+
+import static java.util.Objects.nonNull;
+
 /**
  * Machine that can use up to 9 items in the input and only 1 item in the output
  */
-public class MediumContainerMachine extends AContainer implements NotHopperable, RecipeDisplayItem {
+public class MagicalCoreContainerMachine extends AContainer implements NotHopperable, RecipeDisplayItem {
 
   private final Map<Block, MachineRecipe> processing = new HashMap<Block, MachineRecipe>();
   private final Map<Block, Integer> progressItem = new HashMap<Block, Integer>();
@@ -56,8 +53,8 @@ public class MediumContainerMachine extends AContainer implements NotHopperable,
   }
 
   @ParametersAreNonnullByDefault
-  public MediumContainerMachine(ItemGroup category, SlimefunItemStack item, RecipeType recipeType,
-      ItemStack[] recipe) {
+  public MagicalCoreContainerMachine(ItemGroup category, SlimefunItemStack item, RecipeType recipeType,
+                                     ItemStack[] recipe) {
     super(category, item, recipeType, recipe);
 
     addItemHandler(onBlockBreak());
@@ -172,12 +169,12 @@ public class MediumContainerMachine extends AContainer implements NotHopperable,
     ));
   }
 
-  public MediumContainerMachine setMachineRecipes(@Nonnull List<AbstractItemRecipe> machineRecipes) {
+  public MagicalCoreContainerMachine setMachineRecipes(@Nonnull List<AbstractItemRecipe> machineRecipes) {
     this.machineRecipes = machineRecipes;
     return this;
   }
 
-  public MediumContainerMachine setTimeProcess(int timeProcess) {
+  public MagicalCoreContainerMachine setTimeProcess(int timeProcess) {
     this.timeProcess = timeProcess;
     return this;
   }
@@ -272,13 +269,13 @@ public class MediumContainerMachine extends AContainer implements NotHopperable,
     return nonNull(this.machineIdentifier) ? this.machineIdentifier : "MachineIdentifier";
   }
 
-  public MediumContainerMachine setMachineIdentifier(@Nonnull String machineIdentifier) {
+  public MagicalCoreContainerMachine setMachineIdentifier(@Nonnull String machineIdentifier) {
     this.machineIdentifier = machineIdentifier;
     return this;
   }
 
   private int progressTick = 0;
-  private final int progressInterval = 8;
+  private final int progressInterval = 32;
 
   @Override
   public void tick(Block b) {
@@ -291,6 +288,25 @@ public class MediumContainerMachine extends AContainer implements NotHopperable,
 
   protected void update(Block b) {
     BlockMenu inv = BlockStorage.getInventory(b);
+
+    for (int slot : getInputSlots()){
+      ItemStack stack = inv.getItemInSlot(slot);
+      if (Objects.nonNull(stack.getType())) {
+        if (stack.getType() == Material.AIR) continue;
+        if (stack.getType() == Material.ENDER_PEARL) continue;
+        if (stack.getType() == Material.LAVA_BUCKET) continue;
+        if (stack.getType() == Material.WATER_BUCKET) continue;
+      }
+
+      if (SlimefunUtils.isItemSimilar(stack, SupremeCore.CORE_OF_ALLOY, false)) continue;
+      if (SlimefunUtils.isItemSimilar(stack, SupremeCore.CORE_OF_BLOCK, false)) continue;
+      if (SlimefunUtils.isItemSimilar(stack, SupremeCore.CORE_OF_COLOR, false)) continue;
+      if (SlimefunUtils.isItemSimilar(stack, SupremeCore.CORE_OF_DEATH, false)) continue;
+      if (SlimefunUtils.isItemSimilar(stack, SupremeCore.CORE_OF_LIFE, false)) continue;
+      if (SlimefunUtils.isItemSimilar(stack, SupremeCore.CORE_OF_NATURE, false)) continue;
+
+      if (stack.getAmount() != 64) return;
+    }
 
     if (this.isProcessing(b)) {
 
